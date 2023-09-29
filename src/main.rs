@@ -6,7 +6,10 @@ mod error;
 use error::{RimError, RimResult};
 
 fn main() {
-    let mut files = env::args();
+    let mut files = env::args().peekable();
+    if files.peek().map(|s| s.as_str()) == Some("pacc") {
+        files.next();
+    }
 
     if files.len() != 2 {
         eprintln!(include_str!("../usage.txt"));
